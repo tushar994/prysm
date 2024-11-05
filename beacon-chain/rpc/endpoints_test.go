@@ -136,6 +136,10 @@ func Test_endpoints(t *testing.T) {
 		"/prysm/v1/validators/active_set_changes": {http.MethodGet},
 	}
 
+	prysmSwaggerEndpoints := map[string][]string{
+		"/prysm/swagger/*any": {http.MethodGet},
+	}
+
 	s := &Service{cfg: &Config{}}
 
 	endpoints := s.endpoints(true, nil, nil, nil, nil, nil, nil)
@@ -147,7 +151,7 @@ func Test_endpoints(t *testing.T) {
 			actualRoutes[e.template] = e.methods
 		}
 	}
-	expectedRoutes := combineMaps(beaconRoutes, builderRoutes, configRoutes, debugRoutes, eventsRoutes, nodeRoutes, validatorRoutes, rewardsRoutes, lightClientRoutes, blobRoutes, prysmValidatorRoutes, prysmNodeRoutes, prysmBeaconRoutes)
+	expectedRoutes := combineMaps(beaconRoutes, builderRoutes, configRoutes, debugRoutes, eventsRoutes, nodeRoutes, validatorRoutes, rewardsRoutes, lightClientRoutes, blobRoutes, prysmValidatorRoutes, prysmNodeRoutes, prysmBeaconRoutes, prysmSwaggerEndpoints)
 
 	assert.Equal(t, true, maps.EqualFunc(expectedRoutes, actualRoutes, func(actualMethods []string, expectedMethods []string) bool {
 		return slices.Equal(expectedMethods, actualMethods)

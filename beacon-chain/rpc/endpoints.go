@@ -8,6 +8,7 @@ import (
 	"github.com/prysmaticlabs/prysm/v5/api"
 	"github.com/prysmaticlabs/prysm/v5/api/server/middleware"
 	"github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/core"
+	_ "github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/docs"
 	"github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/eth/beacon"
 	"github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/eth/blob"
 	"github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/eth/builder"
@@ -24,6 +25,7 @@ import (
 	validatorv1alpha1 "github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/prysm/v1alpha1/validator"
 	validatorprysm "github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/prysm/validator"
 	"github.com/prysmaticlabs/prysm/v5/beacon-chain/state/stategen"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 type endpoint struct {
@@ -70,6 +72,7 @@ func (s *Service) endpoints(
 	endpoints = append(endpoints, s.prysmBeaconEndpoints(ch, stater, coreService)...)
 	endpoints = append(endpoints, s.prysmNodeEndpoints()...)
 	endpoints = append(endpoints, s.prysmValidatorEndpoints(stater, coreService)...)
+	endpoints = append(endpoints, s.prysmSwaggerEndpoints()...)
 	if enableDebug {
 		endpoints = append(endpoints, s.debugEndpoints(stater)...)
 	}
@@ -1096,6 +1099,12 @@ func (s *Service) prysmNodeEndpoints() []endpoint {
 			handler: server.ListTrustedPeer,
 			methods: []string{http.MethodGet},
 		},
+		// @Summary List Trusted Peers
+		// @Description Returns a list of trusted peers
+		// @Tags prysm
+		// @Produce json
+		// @Success 200 {object} []string "List of trusted peer IDs"
+		// @Router /prysm/node/trusted_peers [get]
 		{
 			template: "/prysm/node/trusted_peers",
 			name:     namespace + ".AddTrustedPeer",
@@ -1182,6 +1191,24 @@ func (s *Service) prysmValidatorEndpoints(stater lookup.Stater, coreService *cor
 				middleware.AcceptHeaderHandler([]string{api.JsonMediaType}),
 			},
 			handler: server.GetActiveSetChanges,
+			methods: []string{http.MethodGet},
+		},
+	}
+}
+
+func (s *Service) prysmSwaggerEndpoints() []endpoint {
+	const namespace = "prysm.swagger"
+	return []endpoint{
+		{
+			template: "/prysm/swagger/*any",
+			name:     namespace + ".GetSwaggerDocs",
+			middleware: []middleware.Middleware{
+				middleware.ContentTypeHandler([]string{api.JsonMediaType}),
+				middleware.AcceptHeaderHandler([]string{api.JsonMediaType}),
+			},
+			handler: func(w http.ResponseWriter, r *http.Request) {
+				httpSwagger.WrapHandler(w, r)
+			},
 			methods: []string{http.MethodGet},
 		},
 	}

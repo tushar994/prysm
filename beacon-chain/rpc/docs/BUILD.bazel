@@ -1,0 +1,14 @@
+load("@prysm//tools/go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "docs.go",
+    ],
+    importpath = "github.com/prysmaticlabs/prysm/v5/beacon-chain/rpc/docs",
+    visibility = ["//beacon-chain:__subpackages__"],
+    deps = [
+        "//api:go_default_library",
+        "@com_github_swaggo_swag//:go_default_library"
+    ],
+)
