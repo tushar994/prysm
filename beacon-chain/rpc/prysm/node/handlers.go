@@ -18,6 +18,20 @@ import (
 	eth "github.com/prysmaticlabs/prysm/v5/proto/prysm/v1alpha1"
 )
 
+// ListTrustedPeer godoc
+//
+// @Summary List Trusted Peers
+// @Description Returns a list of trusted peers
+//
+//	@ID				get-trusted-peers
+//
+// @Tags prysm
+//
+//	@Accept			json
+//
+// @Produce json
+// @Success 200 {object} []string "List of trusted peer IDs"
+// @Router /prysm/v1/node/trusted_peers [get]
 // ListTrustedPeer retrieves data about the node's trusted peers.
 func (s *Server) ListTrustedPeer(w http.ResponseWriter, r *http.Request) {
 	_, span := trace.StartSpan(r.Context(), "node.ListTrustedPeer")
@@ -54,10 +68,10 @@ func (s *Server) ListTrustedPeer(w http.ResponseWriter, r *http.Request) {
 
 // AddTrustedPeer godoc
 //
-// @Summary List Trusted Peers
+// @Summary Add Trusted Peers
 // @Description Returns a list of trusted peers
 //
-//	@ID				get-trusted-peers
+//	@ID				add-trusted-peers
 //
 // @Tags prysm
 //
@@ -65,7 +79,7 @@ func (s *Server) ListTrustedPeer(w http.ResponseWriter, r *http.Request) {
 //
 // @Produce json
 // @Success 200 {object} []string "List of trusted peer IDs"
-// @Router /prysm/node/trusted_peers [get]
+// @Router /prysm/v1/node/trusted_peers [post]
 // AddTrustedPeer adds a new peer into node's trusted peer set by Multiaddr
 func (s *Server) AddTrustedPeer(w http.ResponseWriter, r *http.Request) {
 	_, span := trace.StartSpan(r.Context(), "node.AddTrustedPeer")
@@ -114,6 +128,20 @@ func (s *Server) AddTrustedPeer(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+// RemoveTrustedPeer godoc
+//
+// @Summary Remove Trusted Peer
+// @Description Removes a peer but does not close connection
+//
+//	@ID				remove-trusted-peers
+//
+// @Tags prysm
+//
+//	@Accept			json
+//
+// @Produce json
+// @Success 200
+// @Router /prysm/v1/node/trusted_peers/{peer_id} [delete]
 // RemoveTrustedPeer removes peer from our trusted peer set but does not close connection.
 func (s *Server) RemoveTrustedPeer(w http.ResponseWriter, r *http.Request) {
 	_, span := trace.StartSpan(r.Context(), "node.RemoveTrustedPeer")
