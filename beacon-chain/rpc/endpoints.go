@@ -28,6 +28,10 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
+//	@title			Swagger Example API
+//	@version		1.0
+//	@license.name	Apache 2.0
+
 type endpoint struct {
 	template   string
 	name       string
@@ -1099,12 +1103,6 @@ func (s *Service) prysmNodeEndpoints() []endpoint {
 			handler: server.ListTrustedPeer,
 			methods: []string{http.MethodGet},
 		},
-		// @Summary List Trusted Peers
-		// @Description Returns a list of trusted peers
-		// @Tags prysm
-		// @Produce json
-		// @Success 200 {object} []string "List of trusted peer IDs"
-		// @Router /prysm/node/trusted_peers [get]
 		{
 			template: "/prysm/node/trusted_peers",
 			name:     namespace + ".AddTrustedPeer",
@@ -1198,17 +1196,16 @@ func (s *Service) prysmValidatorEndpoints(stater lookup.Stater, coreService *cor
 
 func (s *Service) prysmSwaggerEndpoints() []endpoint {
 	const namespace = "prysm.swagger"
+	httpHandler := httpSwagger.Handler()
 	return []endpoint{
 		{
-			template: "/prysm/swagger/*any",
-			name:     namespace + ".GetSwaggerDocs",
+			template:   "/prysm/swagger/*",
+			name:       namespace + ".GetSwaggerDocs",
 			middleware: []middleware.Middleware{
-				middleware.ContentTypeHandler([]string{api.JsonMediaType}),
-				middleware.AcceptHeaderHandler([]string{api.JsonMediaType}),
+				// middleware.ContentTypeHandler([]string{api.JsonMediaType}),
+				// middleware.AcceptHeaderHandler([]string{api.JsonMediaType}),
 			},
-			handler: func(w http.ResponseWriter, r *http.Request) {
-				httpSwagger.WrapHandler(w, r)
-			},
+			handler: httpHandler,
 			methods: []string{http.MethodGet},
 		},
 	}

@@ -1,7 +1,40 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "title": "Swagger Example API",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0"
+        },
+        "version": "1.0"
     },
-    "paths": {}
+    "paths": {
+        "/prysm/node/trusted_peers": {
+            "get": {
+                "description": "Returns a list of trusted peers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "List Trusted Peers",
+                "operationId": "get-trusted-peers",
+                "responses": {
+                    "200": {
+                        "description": "List of trusted peer IDs",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

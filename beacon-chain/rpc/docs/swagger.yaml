@@ -1,4 +1,26 @@
 info:
   contact: {}
-paths: {}
+  license:
+    name: Apache 2.0
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /prysm/node/trusted_peers:
+    get:
+      consumes:
+      - application/json
+      description: Returns a list of trusted peers
+      operationId: get-trusted-peers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of trusted peer IDs
+          schema:
+            items:
+              type: string
+            type: array
+      summary: List Trusted Peers
+      tags:
+      - prysm
 swagger: "2.0"

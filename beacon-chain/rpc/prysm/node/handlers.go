@@ -52,6 +52,20 @@ func (s *Server) ListTrustedPeer(w http.ResponseWriter, r *http.Request) {
 	httputil.WriteJson(w, response)
 }
 
+// AddTrustedPeer godoc
+//
+// @Summary List Trusted Peers
+// @Description Returns a list of trusted peers
+//
+//	@ID				get-trusted-peers
+//
+// @Tags prysm
+//
+//	@Accept			json
+//
+// @Produce json
+// @Success 200 {object} []string "List of trusted peer IDs"
+// @Router /prysm/node/trusted_peers [get]
 // AddTrustedPeer adds a new peer into node's trusted peer set by Multiaddr
 func (s *Server) AddTrustedPeer(w http.ResponseWriter, r *http.Request) {
 	_, span := trace.StartSpan(r.Context(), "node.AddTrustedPeer")
