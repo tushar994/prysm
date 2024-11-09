@@ -20,6 +20,27 @@ import (
 	"github.com/prysmaticlabs/prysm/v5/time/slots"
 )
 
+// # GetValidatorCount godoc
+//
+// @Summary Returns the validator count for specified statuses in the Beacon Chain.
+// @Description Fetches the total validator count according to the specified statuses provided as query parameters. The endpoint accepts a state ID as a path parameter, which represents the Beacon Chain state identifier. Statuses can include values like pending_initialized, active_ongoing, exited_unslashed, etc.
+//
+// @ID get-validator-count
+//
+// @Tags prysm
+//
+// Swagger-Param state_id path string true "Beacon Chain State ID"
+// Swagger-Param status query []string false "Validator status filters, e.g., active, pending, exited"
+//
+// @Accept json
+//
+// @Produce json
+// Swagger-Success 200 {object} structs.GetValidatorCountResponse
+// Swagger-Failure 400 {object} httputil.DefaultJsonError "Invalid status query parameter"
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+//
+// @Router /prysm/v1/beacon/states/{state_id}/validator_count [get]
+//
 // GetValidatorCount is a HTTP handler that serves the GET /eth/v1/beacon/states/{state_id}/validator_count endpoint.
 // It returns the total validator count according to the given statuses provided as a query parameter.
 //

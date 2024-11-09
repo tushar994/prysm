@@ -14,6 +14,26 @@ import (
 	"github.com/prysmaticlabs/prysm/v5/time/slots"
 )
 
+// GetParticipation godoc
+//
+// @Summary Retrieves validator participation information for a given epoch.
+// @Description Provides validator participation metrics, including participation rate, voted and eligible ether, and active and attesting Gwei for the current and previous epochs.
+//
+// @ID get-validator-participation
+//
+// @Tags prysm
+//
+// Swagger-Param state_id path string true "Beacon Chain State ID"
+//
+// @Accept json
+//
+// @Produce json
+// Swagger-Success 200 {object} structs.GetValidatorParticipationResponse
+// Swagger-Failure 400 {object} httputil.DefaultJsonError "State ID is required"
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+//
+// @Router /prysm/v1/validators/participation [get]
+//
 // GetParticipation retrieves the validator participation information for a given epoch,
 // it returns the information about validator's participation rate in voting on the proof of stake
 // rules based on their balance compared to the total active validator balance.
@@ -58,6 +78,26 @@ func (s *Server) GetParticipation(w http.ResponseWriter, r *http.Request) {
 	httputil.WriteJson(w, response)
 }
 
+// GetActiveSetChanges godoc
+//
+// @Summary Retrieves active set changes for a given epoch.
+// @Description Provides information on validator activations, exits (voluntary and involuntary), and slashes for a specific epoch.
+//
+// @ID get-active-set-changes
+//
+// @Tags prysm
+//
+// Swagger-Param state_id path string true "Beacon Chain State ID"
+//
+// @Accept json
+//
+// @Produce json
+// Swagger-Success 200 {object} structs.ActiveSetChanges
+// Swagger-Failure 400 {object} httputil.DefaultJsonError "State ID is required"
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+//
+// @Router /prysm/v1/validators/active_set_changes [get]
+//
 // GetActiveSetChanges retrieves the active set changes for a given epoch.
 //
 // This data includes any activations, voluntary exits, and involuntary

@@ -24,6 +24,23 @@ import (
 	"github.com/prysmaticlabs/prysm/v5/time/slots"
 )
 
+// GetWeakSubjectivity godoc
+//
+// @Summary Calculates the weak subjectivity period's start epoch and best sync checkpoint.
+// @Description Computes the starting epoch of the current weak subjectivity period, and determines the best block root and state root for Checkpoint Sync starting from that point.
+//
+// @ID get-weak-subjectivity
+//
+// @Tags prysm
+//
+// @Accept json
+// @Produce json
+//
+// Swagger-Success 200 {object} structs.GetWeakSubjectivityResponse "Weak subjectivity data including checkpoint and state root"
+//
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+//
+// @Router /prysm/v1/beacon/weak_subjectivity [get]
 // GetWeakSubjectivity computes the starting epoch of the current weak subjectivity period, and then also
 // determines the best block root and state root to use for a Checkpoint Sync starting from that point.
 func (s *Server) GetWeakSubjectivity(w http.ResponseWriter, r *http.Request) {
@@ -78,6 +95,24 @@ func (s *Server) GetWeakSubjectivity(w http.ResponseWriter, r *http.Request) {
 	httputil.WriteJson(w, resp)
 }
 
+// GetIndividualVotes godoc
+//
+// @Summary Gets list of validators' individual vote status for a given epoch.
+// @Description Retrieves individual voting status details for specified validators during a given epoch.
+//
+// @ID get-individual-votes
+//
+// @Tags prysm
+//
+// @Accept json
+// @Produce json
+//
+// Swagger-Param body body structs.GetIndividualVotesRequest true "Request body containing epoch and list of validator public keys or indices"
+// Swagger-Success 200 {object} structs.GetIndividualVotesResponse "List of individual votes for specified validators"
+// Swagger-Failure 400 {object} httputil.DefaultJsonError "Bad request, invalid or missing data in request"
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+//
+// @Router /prysm/v1/beacon/individual_votes [post]
 // GetIndividualVotes returns a list of validators individual vote status of a given epoch.
 func (s *Server) GetIndividualVotes(w http.ResponseWriter, r *http.Request) {
 	ctx, span := trace.StartSpan(r.Context(), "validator.GetIndividualVotes")
@@ -157,6 +192,21 @@ func (s *Server) GetIndividualVotes(w http.ResponseWriter, r *http.Request) {
 	httputil.WriteJson(w, response)
 }
 
+// GetChainHead godoc
+//
+// @Summary Retrieves information about the head of the beacon chain.
+// @Description Provides the current head slot, epoch, block root, and finalized and justified checkpoints from the perspective of the beacon chain node.
+//
+// @ID get-chain-head
+//
+// @Tags prysm
+//
+// @Produce json
+// Swagger-Success 200 {object} structs.ChainHead
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+//
+// @Router /prysm/v1/beacon/chain_head [get]
+//
 // GetChainHead retrieves information about the head of the beacon chain from
 // the view of the beacon chain node.
 func (s *Server) GetChainHead(w http.ResponseWriter, r *http.Request) {
@@ -186,6 +236,24 @@ func (s *Server) GetChainHead(w http.ResponseWriter, r *http.Request) {
 	httputil.WriteJson(w, response)
 }
 
+// PublishBlobs godoc
+//
+// @Summary Publishes blobs data to the beacon chain node.
+// @Description Receives and processes blob sidecars, verifies and broadcasts them as necessary.
+//
+// @ID publish-blobs
+//
+// @Tags prysm
+//
+// @Accept json
+// @Produce json
+//
+// Swagger-Param body body structs.PublishBlobsRequest true "Request body containing blob sidecars to publish"
+// Swagger-Success 200 "Blobs successfully published"
+// Swagger-Failure 400 {object} httputil.DefaultJsonError "Bad request, invalid blob sidecars or block root"
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error, failed to process blob sidecar"
+//
+// @Router /prysm/v1/beacon/blobs [post]
 func (s *Server) PublishBlobs(w http.ResponseWriter, r *http.Request) {
 	ctx, span := trace.StartSpan(r.Context(), "beacon.PublishBlobs")
 	defer span.End()

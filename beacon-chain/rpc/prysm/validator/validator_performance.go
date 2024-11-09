@@ -13,6 +13,24 @@ import (
 	ethpb "github.com/prysmaticlabs/prysm/v5/proto/prysm/v1alpha1"
 )
 
+// GetPerformance godoc
+//
+// @Summary Retrieves validator performance metrics.
+// @Description Computes performance metrics for validators based on public keys and indices provided in the request body. This includes metrics such as correctly voted source, target, head, balances before and after epoch transition, and inactivity scores.
+//
+// @ID get-validator-performance
+//
+// @Tags prysm
+//
+// @Accept json
+//
+// @Produce json
+// Swagger-Param request body structs.GetValidatorPerformanceRequest true "Validator performance request"
+// Swagger-Success 200 {object} structs.GetValidatorPerformanceResponse
+// Swagger-Failure 400 {object} httputil.DefaultJsonError "Bad request or could not decode request body"
+// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+//
+// @Router /prysm/v1/validators/performance [post]
 // GetPerformance is an HTTP handler for GetPerformance.
 func (s *Server) GetPerformance(w http.ResponseWriter, r *http.Request) {
 	ctx, span := trace.StartSpan(r.Context(), "validator.GetPerformance")

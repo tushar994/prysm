@@ -10,5 +10,20 @@ go_library(
     deps = [
         "//api:go_default_library",
         "@com_github_swaggo_swag//:go_default_library"
+        # ":swagger_files"
     ],
 )
+
+# filegroup(
+#     name = "swagger_files",
+#     srcs = ["beacon-chain/rpc/docs/swagger.json"],
+# )
+
+# genrule(
+#     name = "generate_swagger",
+#     # srcs = glob(["beacon-chain/rpc/**/*.go"]),  # adjust path to your Go source files
+#     outs = ["swagger.json"],  # or wherever you'd like the output
+#     cmd = "swag init --dir beacon-chain/rpc -g endpoints.go -o beacon-chain/rpc/docs/",
+#     tools = ["@com_github_swaggo_swag//:go_default_library"],
+#     # tools = ["@go_sdk//:bin/swag"],
+# )

@@ -18,7 +18,89 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/prysm/node/trusted_peers": {
+        "/prysm/v1/beacon/blobs": {
+            "post": {
+                "description": "Receives and processes blob sidecars, verifies and broadcasts them as necessary.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Publishes blobs data to the beacon chain node.",
+                "operationId": "publish-blobs",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/beacon/chain_head": {
+            "get": {
+                "description": "Provides the current head slot, epoch, block root, and finalized and justified checkpoints from the perspective of the beacon chain node.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Retrieves information about the head of the beacon chain.",
+                "operationId": "get-chain-head",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/beacon/individual_votes": {
+            "post": {
+                "description": "Retrieves individual voting status details for specified validators during a given epoch.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Gets list of validators' individual vote status for a given epoch.",
+                "operationId": "get-individual-votes",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/beacon/states/{state_id}/validator_count": {
+            "get": {
+                "description": "Fetches the total validator count according to the specified statuses provided as query parameters. The endpoint accepts a state ID as a path parameter, which represents the Beacon Chain state identifier. Statuses can include values like pending_initialized, active_ongoing, exited_unslashed, etc.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Returns the validator count for specified statuses in the Beacon Chain.",
+                "operationId": "get-validator-count",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/beacon/weak_subjectivity": {
+            "get": {
+                "description": "Computes the starting epoch of the current weak subjectivity period, and determines the best block root and state root for Checkpoint Sync starting from that point.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Calculates the weak subjectivity period's start epoch and best sync checkpoint.",
+                "operationId": "get-weak-subjectivity",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/node/trusted_peers": {
             "get": {
                 "description": "Returns a list of trusted peers",
                 "consumes": [
@@ -32,17 +114,90 @@ const docTemplate = `{
                 ],
                 "summary": "List Trusted Peers",
                 "operationId": "get-trusted-peers",
-                "responses": {
-                    "200": {
-                        "description": "List of trusted peer IDs",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
+                "responses": {}
+            },
+            "post": {
+                "description": "Returns a list of trusted peers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Add Trusted Peers",
+                "operationId": "add-trusted-peers",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/node/trusted_peers/{peer_id}": {
+            "delete": {
+                "description": "Removes a peer but does not close connection",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Remove Trusted Peer",
+                "operationId": "remove-trusted-peers",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/validators/active_set_changes": {
+            "get": {
+                "description": "Provides information on validator activations, exits (voluntary and involuntary), and slashes for a specific epoch.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Retrieves active set changes for a given epoch.",
+                "operationId": "get-active-set-changes",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/validators/participation": {
+            "get": {
+                "description": "Provides validator participation metrics, including participation rate, voted and eligible ether, and active and attesting Gwei for the current and previous epochs.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Retrieves validator participation information for a given epoch.",
+                "operationId": "get-validator-participation",
+                "responses": {}
+            }
+        },
+        "/prysm/v1/validators/performance": {
+            "post": {
+                "description": "Computes performance metrics for validators based on public keys and indices provided in the request body. This includes metrics such as correctly voted source, target, head, balances before and after epoch transition, and inactivity scores.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "prysm"
+                ],
+                "summary": "Retrieves validator performance metrics.",
+                "operationId": "get-validator-performance",
+                "responses": {}
             }
         }
     }

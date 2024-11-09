@@ -5,7 +5,74 @@ info:
   title: Swagger Example API
   version: "1.0"
 paths:
-  /prysm/node/trusted_peers:
+  /prysm/v1/beacon/blobs:
+    post:
+      consumes:
+      - application/json
+      description: Receives and processes blob sidecars, verifies and broadcasts them
+        as necessary.
+      operationId: publish-blobs
+      produces:
+      - application/json
+      responses: {}
+      summary: Publishes blobs data to the beacon chain node.
+      tags:
+      - prysm
+  /prysm/v1/beacon/chain_head:
+    get:
+      description: Provides the current head slot, epoch, block root, and finalized
+        and justified checkpoints from the perspective of the beacon chain node.
+      operationId: get-chain-head
+      produces:
+      - application/json
+      responses: {}
+      summary: Retrieves information about the head of the beacon chain.
+      tags:
+      - prysm
+  /prysm/v1/beacon/individual_votes:
+    post:
+      consumes:
+      - application/json
+      description: Retrieves individual voting status details for specified validators
+        during a given epoch.
+      operationId: get-individual-votes
+      produces:
+      - application/json
+      responses: {}
+      summary: Gets list of validators' individual vote status for a given epoch.
+      tags:
+      - prysm
+  /prysm/v1/beacon/states/{state_id}/validator_count:
+    get:
+      consumes:
+      - application/json
+      description: Fetches the total validator count according to the specified statuses
+        provided as query parameters. The endpoint accepts a state ID as a path parameter,
+        which represents the Beacon Chain state identifier. Statuses can include values
+        like pending_initialized, active_ongoing, exited_unslashed, etc.
+      operationId: get-validator-count
+      produces:
+      - application/json
+      responses: {}
+      summary: Returns the validator count for specified statuses in the Beacon Chain.
+      tags:
+      - prysm
+  /prysm/v1/beacon/weak_subjectivity:
+    get:
+      consumes:
+      - application/json
+      description: Computes the starting epoch of the current weak subjectivity period,
+        and determines the best block root and state root for Checkpoint Sync starting
+        from that point.
+      operationId: get-weak-subjectivity
+      produces:
+      - application/json
+      responses: {}
+      summary: Calculates the weak subjectivity period's start epoch and best sync
+        checkpoint.
+      tags:
+      - prysm
+  /prysm/v1/node/trusted_peers:
     get:
       consumes:
       - application/json
@@ -13,14 +80,73 @@ paths:
       operationId: get-trusted-peers
       produces:
       - application/json
-      responses:
-        "200":
-          description: List of trusted peer IDs
-          schema:
-            items:
-              type: string
-            type: array
+      responses: {}
       summary: List Trusted Peers
+      tags:
+      - prysm
+    post:
+      consumes:
+      - application/json
+      description: Returns a list of trusted peers
+      operationId: add-trusted-peers
+      produces:
+      - application/json
+      responses: {}
+      summary: Add Trusted Peers
+      tags:
+      - prysm
+  /prysm/v1/node/trusted_peers/{peer_id}:
+    delete:
+      consumes:
+      - application/json
+      description: Removes a peer but does not close connection
+      operationId: remove-trusted-peers
+      produces:
+      - application/json
+      responses: {}
+      summary: Remove Trusted Peer
+      tags:
+      - prysm
+  /prysm/v1/validators/active_set_changes:
+    get:
+      consumes:
+      - application/json
+      description: Provides information on validator activations, exits (voluntary
+        and involuntary), and slashes for a specific epoch.
+      operationId: get-active-set-changes
+      produces:
+      - application/json
+      responses: {}
+      summary: Retrieves active set changes for a given epoch.
+      tags:
+      - prysm
+  /prysm/v1/validators/participation:
+    get:
+      consumes:
+      - application/json
+      description: Provides validator participation metrics, including participation
+        rate, voted and eligible ether, and active and attesting Gwei for the current
+        and previous epochs.
+      operationId: get-validator-participation
+      produces:
+      - application/json
+      responses: {}
+      summary: Retrieves validator participation information for a given epoch.
+      tags:
+      - prysm
+  /prysm/v1/validators/performance:
+    post:
+      consumes:
+      - application/json
+      description: Computes performance metrics for validators based on public keys
+        and indices provided in the request body. This includes metrics such as correctly
+        voted source, target, head, balances before and after epoch transition, and
+        inactivity scores.
+      operationId: get-validator-performance
+      produces:
+      - application/json
+      responses: {}
+      summary: Retrieves validator performance metrics.
       tags:
       - prysm
 swagger: "2.0"
