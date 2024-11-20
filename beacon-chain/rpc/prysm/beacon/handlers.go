@@ -36,9 +36,9 @@ import (
 // @Accept json
 // @Produce json
 //
-// Swagger-Success 200 {object} structs.GetWeakSubjectivityResponse "Weak subjectivity data including checkpoint and state root"
+// @Success 200 {object} structs.GetWeakSubjectivityResponse "Weak subjectivity data including checkpoint and state root"
 //
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error"
 //
 // @Router /prysm/v1/beacon/weak_subjectivity [get]
 // GetWeakSubjectivity computes the starting epoch of the current weak subjectivity period, and then also
@@ -108,9 +108,9 @@ func (s *Server) GetWeakSubjectivity(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 //
 // Swagger-Param body body structs.GetIndividualVotesRequest true "Request body containing epoch and list of validator public keys or indices"
-// Swagger-Success 200 {object} structs.GetIndividualVotesResponse "List of individual votes for specified validators"
-// Swagger-Failure 400 {object} httputil.DefaultJsonError "Bad request, invalid or missing data in request"
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+// @Success 200 {object} structs.GetIndividualVotesResponse "List of individual votes for specified validators"
+// @Failure 400 {object} httputil.DefaultJsonError "Bad request, invalid or missing data in request"
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error"
 //
 // @Router /prysm/v1/beacon/individual_votes [post]
 // GetIndividualVotes returns a list of validators individual vote status of a given epoch.
@@ -202,8 +202,8 @@ func (s *Server) GetIndividualVotes(w http.ResponseWriter, r *http.Request) {
 // @Tags prysm
 //
 // @Produce json
-// Swagger-Success 200 {object} structs.ChainHead
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+// @Success 200 {object} structs.ChainHead
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error"
 //
 // @Router /prysm/v1/beacon/chain_head [get]
 //
@@ -249,9 +249,9 @@ func (s *Server) GetChainHead(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 //
 // Swagger-Param body body structs.PublishBlobsRequest true "Request body containing blob sidecars to publish"
-// Swagger-Success 200 "Blobs successfully published"
-// Swagger-Failure 400 {object} httputil.DefaultJsonError "Bad request, invalid blob sidecars or block root"
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error, failed to process blob sidecar"
+// @Success 200 "Blobs successfully published"
+// @Failure 400 {object} httputil.DefaultJsonError "Bad request, invalid blob sidecars or block root"
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error, failed to process blob sidecar"
 //
 // @Router /prysm/v1/beacon/blobs [post]
 func (s *Server) PublishBlobs(w http.ResponseWriter, r *http.Request) {

@@ -30,7 +30,7 @@ import (
 //	@Accept			json
 //
 // @Produce json
-// Swagger-Success 200 {object} []string "List of trusted peer IDs"
+// @Success 200 {object} []string "List of trusted peer IDs"
 // @Router /prysm/v1/node/trusted_peers [get]
 // ListTrustedPeer retrieves data about the node's trusted peers.
 func (s *Server) ListTrustedPeer(w http.ResponseWriter, r *http.Request) {
@@ -78,7 +78,7 @@ func (s *Server) ListTrustedPeer(w http.ResponseWriter, r *http.Request) {
 //	@Accept			json
 //
 // @Produce json
-// Swagger-Success 200 {object} []string "List of trusted peer IDs"
+// @Success 200 {object} []string "List of trusted peer IDs"
 // @Router /prysm/v1/node/trusted_peers [post]
 // AddTrustedPeer adds a new peer into node's trusted peer set by Multiaddr
 func (s *Server) AddTrustedPeer(w http.ResponseWriter, r *http.Request) {
@@ -140,8 +140,8 @@ func (s *Server) AddTrustedPeer(w http.ResponseWriter, r *http.Request) {
 //	@Accept			json
 //
 // @Produce json
-// Swagger-Success 200
-// @Router /prysm/v1/node/trusted_peers/{peer_id} [delete]
+// @Success 200
+// @Router /prysm/v1/node/trusted_peers/{peer_id}/randdomshehe [delete]
 // RemoveTrustedPeer removes peer from our trusted peer set but does not close connection.
 func (s *Server) RemoveTrustedPeer(w http.ResponseWriter, r *http.Request) {
 	_, span := trace.StartSpan(r.Context(), "node.RemoveTrustedPeer")

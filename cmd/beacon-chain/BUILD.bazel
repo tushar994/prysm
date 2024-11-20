@@ -55,6 +55,9 @@ go_binary(
         "//beacon-chain:__subpackages__",
         "//testing/endtoend:__pkg__",
     ],
+    data = [
+        "//beacon-chain/rpc/docs:generate_swagger",
+    ],
 )
 
 go_test(

@@ -26,9 +26,9 @@ import (
 //
 // @Produce json
 // Swagger-Param request body structs.GetValidatorPerformanceRequest true "Validator performance request"
-// Swagger-Success 200 {object} structs.GetValidatorPerformanceResponse
-// Swagger-Failure 400 {object} httputil.DefaultJsonError "Bad request or could not decode request body"
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+// @Success 200 {object} structs.GetValidatorPerformanceResponse
+// @Failure 400 {object} httputil.DefaultJsonError "Bad request or could not decode request body"
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error"
 //
 // @Router /prysm/v1/validators/performance [post]
 // GetPerformance is an HTTP handler for GetPerformance.

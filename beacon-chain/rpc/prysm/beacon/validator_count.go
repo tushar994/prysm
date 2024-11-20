@@ -35,9 +35,9 @@ import (
 // @Accept json
 //
 // @Produce json
-// Swagger-Success 200 {object} structs.GetValidatorCountResponse
-// Swagger-Failure 400 {object} httputil.DefaultJsonError "Invalid status query parameter"
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+// @Success 200 {object} structs.GetValidatorCountResponse
+// @Failure 400 {object} httputil.DefaultJsonError "Invalid status query parameter"
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error"
 //
 // @Router /prysm/v1/beacon/states/{state_id}/validator_count [get]
 //

@@ -28,9 +28,9 @@ import (
 // @Accept json
 //
 // @Produce json
-// Swagger-Success 200 {object} structs.GetValidatorParticipationResponse
-// Swagger-Failure 400 {object} httputil.DefaultJsonError "State ID is required"
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+// @Success 200 {object} structs.GetValidatorParticipationResponse
+// @Failure 400 {object} httputil.DefaultJsonError "State ID is required"
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error"
 //
 // @Router /prysm/v1/validators/participation [get]
 //
@@ -92,9 +92,9 @@ func (s *Server) GetParticipation(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 //
 // @Produce json
-// Swagger-Success 200 {object} structs.ActiveSetChanges
-// Swagger-Failure 400 {object} httputil.DefaultJsonError "State ID is required"
-// Swagger-Failure 500 {object} httputil.DefaultJsonError "Internal server error"
+// @Success 200 {object} structs.ActiveSetChanges
+// @Failure 400 {object} httputil.DefaultJsonError "State ID is required"
+// @Failure 500 {object} httputil.DefaultJsonError "Internal server error"
 //
 // @Router /prysm/v1/validators/active_set_changes [get]
 //
